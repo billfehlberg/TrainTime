@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- LINK TO FIREBASE GOES HERE -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+  </head>
+  <body>
+   <div class = "container">
+     <div class="jumbotron">
+       <h1 class="text-center">Employee info!</h1>
+     </div>
+
+     <table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">name</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+      <th scope="col">start date</th>
+      <th scope="col">database1</th>
+      <th scope="col">database2</th>
+    </tr>
+  </thead>
+  <tbody id = "mytable">
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+
+  </tbody>
+</table>
+<form>
+  <div class="form-group">
+    <label for="first">name</label>
+    <input type="text" class="form-control" id="first" >
+  </div>
+
+  <div class="form-group">
+    <label for="role">role</label>
+    <input type="text" class="form-control" id="role" >
+  </div>
+  <div class="form-group">
+    <label for="last">monthly rate</label>
+    <input type="text" class="form-control" id="rate" >
+  </div>
+  <div class="form-group">
+    <label for="Start date">Start Date </label>
+    <input type="date" id="start" name="trip-start" value="2018-07-22" min="1990-01-01" max="2018-12-31">
+  </div>
+<button type="button" class="btn btn-primary" id = "submit">submit</button>
+</form>
+   </div>
+  </body>
+
+  <script>
+
+
+  var config = {
+     apiKey: "AIzaSyC0A5wIhsyxZs_CVGjIUFhC3KoIdfJ4OaY",
+     authDomain: "my-project-yang4-1538581543463.firebaseapp.com",
+     databaseURL: "https://my-project-yang4-1538581543463.firebaseio.com",
+     projectId: "my-project-yang4-1538581543463",
+     storageBucket: "my-project-yang4-1538581543463.appspot.com",
+     messagingSenderId: "814124733643"
+   };
+   firebase.initializeApp(config);
+
+   var database = firebase.database();
+
+   // Initial Values
+   var name = "";
+   var role = "";
+   var monthlyRate = 0;
+   var startDate= "";
+
+   // Capture Button Click
+   $("#submit").on("click", function(event) {
+     event.preventDefault();
+
+     // Grabbed values from text boxes
+     name = $("#first").val().trim();
+     role = $("#role").val().trim();
+     monthlyRate = $("#rate").val().trim();
+     startDate = $("#start").val().trim();
+
+    //  var newrow = "<tr><td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + email + "</td></tr>";
+    // $("#mytable").append(newrow);
+    $("#mytable").append(
+            `<tr>
+            <td>${name}<td>
+            <td>${role}<td>
+            <td>${startDate}<td>
+            <td>${monthlyRate}<td>
+            <tr>`
+        );
+
+
+
+   database.ref().push({
+        name: name,
+        role: role,
+        startDate: startDate,
+        monthlyRate: monthlyRate
+      });
+
+});
+  </script>
+</html>
