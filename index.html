@@ -19,9 +19,9 @@
             <div class="col">
             <div class="card bg-light mt-2" style="width: 50rem;">
                 <div class="card-header">
-                        Current Train Schedule
+                        Outstate Express Schedule
                 </div>
-                <table class="table">
+                <table class="table" id="train-display">
                     <thead>
                         <tr>
                             <th scope="col">Train Name</th>
@@ -31,13 +31,7 @@
                             <th scope="col">Minutes Away</th>
                         </tr>
                     </thead>
-                    <tbody id="train-display">
-                        <tr>
-                            <th scope ="row">One</th>
-                            <td>Morris</td>
-                            <td>Bemidji</td>
-                            <td>Winona</td>
-                        </tr>
+                    <tbody>
                     </tbody>
                 </table>
             </div>
@@ -50,22 +44,22 @@
                     Add Items
                 </div>
                 <div class="form-group">
-                    <label for="trainName">Train Name</label>
-                    <input type="text" class="form-control" id="trainName">
+                    <label for="trainName-input">Train Name</label>
+                    <input type="text" class="form-control" id="trainName-input">
                 </div>
                 <div class="form-group">
-                    <label for="destination">Train Name</label>
-                    <input type="text" class="form-control" id="trainName">
+                    <label for="destination-input">Destination</label>
+                    <input type="text" class="form-control" id="destination-input">
                 </div>
                 <div class="form-group">
-                    <label for="trainName">Train Name</label>
-                    <input type="text" class="form-control" id="trainName">
+                    <label for="nextArrival-input">Next Arrival</label>
+                    <input type="time" class="form-control" id="nextArrival-input">
                 </div>
                 <div class="form-group">
-                    <label for="trainName">Train Name</label>
-                    <input type="text" class="form-control" id="trainName">
+                    <label for="frequency-input">Frequency</label>
+                    <input type="time" class="form-control" id="frequency-input">
                 </div>
-                <button type="button" class="btn btn-primary mb-2 mx-2" id = "submit" style="width: 10rem;">submit</button>
+                <button type="button" class="btn btn-primary mb-2 mx-2" id="submit" style="width: 10rem;">submit</button>
             </div>
             </div>
         </div>
