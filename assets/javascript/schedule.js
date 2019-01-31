@@ -60,3 +60,4 @@ var config = {
     );
     $("#train-display > tbody").append(newRow);
     });
+    //convert the time format to minutes and do a toNow to get the difference and display in new <td>
