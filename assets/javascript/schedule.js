@@ -15,49 +15,53 @@ var config = {
       event.preventDefault();
       var trainName = $("#trainName-input").val().trim();
       var destination = $("#destination-input").val().trim();
-      var nextArrival = $("#nextArrival-input").val().trim();
+      var firstDepart = $("#firstDepart-input").val().trim()
       var frequency = $("#frequency-input").val().trim();
       
       var newRout = {
           Name: trainName,
           Dest: destination,
-          Next: nextArrival,
+          First: firstDepart,
           Freq: frequency
       
         };
     
     database.ref().push(newRout);
 
-    console.log(newRout.Name);
-    console.log(newRout.Dest);
-    console.log(newRout.Next);
-    console.log(newRout.Freq);
-
     alert("New Route Posted");
 
     $("#trainName-input").val("");
     $("#destination-input").val("");
-    $("#nextArrival-input").val("");
+    $("#firstDepart-input").val("");
     $("#frequency-input").val("");
     });
 
     database.ref().on("child_added", function(childSnapshot)    {
-        var trainName = childSnapshot.val().Name;
-        var destination = childSnapshot.val().Dest;
-        var nextArrival = childSnapshot.val().Next;
-        var frequency = childSnapshot.val().Freq;
+        var DBName = childSnapshot.val().Name;
+        var DBDestination = childSnapshot.val().Dest;
+        var DBfirstDepart = childSnapshot.val().First;
+        var DBfrequency = childSnapshot.val().Freq;
+//calculate
+        var currentTime = moment();
+//next arrival remainder left after frequency from first departure//
+        var firstDepartConverted = moment(DBfirstDepart, "hh:mm").subtract(1, "years");
+        var fromDepart = moment().diff(moment(firstDepartConverted), "minutes");
+        var remainder = fromDepart % DBfrequency;
+        var minToArrival = DBfrequency - remainder;
+        var nextArrival = moment().add(minToArrival, "minutes");
+        var nextArrivalConverted = moment(nextArrival).format('hh:mm a');
 
-    console.log(trainName);
-    console.log(destination);
-    console.log(nextArrival);
-    console.log(frequency);
+
+console.log(moment(firstDepartConverted).format('hh:mm a'));
+console.log(fromDepart);
 
     var newRow = $("<tr>").append(
-        $("<th>").text(trainName),
-        $("<td>").text(destination),
-        $("<td>").text(nextArrival),
-        $("<td>").text(frequency)
+        $("<th>").text(DBName),
+        $("<td>").text(DBDestination),
+        $("<td>").text(DBfrequency),
+        $("<td>").text(nextArrivalConverted),
+        $("<td>").text(minToArrival)
     );
+
     $("#train-display > tbody").append(newRow);
     });
-    //convert the time format to minutes and do a toNow to get the difference and display in new <td>
